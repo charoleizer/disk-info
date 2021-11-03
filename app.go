@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/charoleizer/disk-info/core"
+	"github.com/charoleizer/disk-info/notify/telegram"
 	"github.com/charoleizer/disk-info/utils"
 )
 
@@ -30,18 +31,17 @@ func InfiniteLoop() {
 	for {
 		json.Unmarshal([]byte(GetDiskUsage()), &info)
 
-		if info["available-percent"].(float64) >= 90 {
-			fmt.Println("Alerta - Mais de 90% do disco está em uso")
+		if info["available-percent"].(float64) <= 10 {
+			telegram.Notify("⚠️ Alerta - Apenas 10% do espaço em disco etá disponível.")
 		}
 
-		time.Sleep(time.Second)
+		time.Sleep(time.Minute)
 
 	}
 }
 
 func main() {
 	fmt.Println("Monitoramento de disco iniciado")
-	fmt.Println("Quando este servidor atingir 90% da capacidade de disco, você será notificado.")
 	InfiniteLoop()
 }
 

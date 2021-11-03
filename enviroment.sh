@@ -1,0 +1,2 @@
+export TELEGRAM_BOT_TOKEN=xpto
+export TELEGRAM_CHAT_ID=xpto
